@@ -1,0 +1,127 @@
+<header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+
+                <strong>United Airlines</strong>
+            </a>
+
+        </div>
+    </div>
+</header>
+<main role="main">
+
+    <div class="container containerUnitedairline">
+        <div class="row" *ngIf="!searchComplete">
+            <div class="col-md-12">
+                <form class="needs-validation" novalidate [formGroup]="flightSearchForm">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <span class="switchsearch" *ngIf="!searchflightnumber" (click)="switchsearch()">Search with flight Number</span>
+                            <span class="switchsearch" *ngIf="!searchorigindes" (click)="switchsearch()">Search with Origin/Destination</span>
+                        </div>
+                    </div>
+                    <div class="mb-3" *ngIf="searchflightnumber">
+                        <label for="flightnumber" class="required">Flight Number</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">#</span>
+                            </div>
+                            <input type="text" pInputText class="form-control" formControlName="flightNumber" placeholder="Flight Number">
+                            <div class="invalid-feedback" style="width: 100%;">
+                                Your flightnumber is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="searchorigindes">
+                        <div class="col-md-6 mb-3">
+                            <label for="origin" class="required">Origin</label>
+                            <input type="text" pInputText class="form-control" placeholder="Origin" formControlName="origin">
+                            <div class="invalid-feedback">
+                                Valid origin is required.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="destination" class="required">Destination</label>
+                            <input type="text" pInputText class="form-control" placeholder="Destination" formControlName="destination">
+                            <div class="invalid-feedback">
+                                Valid destination is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="origin">From</label><br>
+
+                            <p-calendar [inline]="true" [minDate]="today" formControlName="fromdate"></p-calendar>
+
+
+
+                            <!--  <p-calendar [showIcon]="true" [maxDate]="maxCatchupDateValue" readonlyInput="true" dateFormat="mm/dd/yy" formControlName="catupDate" placeholder="MM/DD/YYYY" [monthNavigator]="true" [yearNavigator]="true" yearRange="1970:2030"></p-calendar>-->
+
+                            <div class="invalid-feedback">
+                                Valid fromdate is required.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="destination">To</label><br>
+                            <p-calendar [inline]="true" formControlName="todate" [minDate]="this.flightSearchForm.get('fromdate').value"></p-calendar>
+                            <div class="invalid-feedback">
+                                Valid todate is required.
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <hr class="mb-4">
+                    <button pButton icon="pi pi-check" iconPos="left" class="btn btn-primary btn-lg btn-block" type="button" [disabled]="!flightSearchForm.valid" (click)="searchflight()">Continue to Flight Search</button>
+
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-3" *ngIf="searchComplete">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+
+                    <span class="switchsearch" (click)="searchComplete=!searchComplete">Return to search</span>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <h4>Search Results</h4>
+                </div>
+            </div>
+
+
+            <p-table [value]="searchResults" class="tableclass">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>arrival</th>
+                        <th>carrier</th>
+                        <th>departure</th>
+                        <th>destination</th>
+                        <th>distance</th>
+                        <th>flightNumber</th>
+                        <th>origin</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-record>
+                    <tr>
+                        <td>{{record.aircraft}}</td>
+                        <td>{{record.arrival | date:'MM/dd/yyyy'}}</td>
+                        <td>{{record.carrier}}</td>
+                        <td>{{record.departure | date:'MM/dd/yyyy'}}</td>
+                        <td>{{record.destination}}</td>
+                        <td>{{record.distance}}</td>
+                        <td>{{record.flightNumber}}</td>
+                        <td>{{record.origin}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+    </div>
+</main>

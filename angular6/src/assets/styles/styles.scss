@@ -1,0 +1,38 @@
+.containerUnitedairline {
+    /* max-width: 960px;*/
+    padding-top: 20px;
+    .ui-calendar {
+        width: 100%;
+        .ui-datepicker-inline {
+            width: 100%;
+        }
+    }
+    .ui-datepicker-today {
+        .ui-state-default {
+            background-color: white !important;
+        }
+        &.ui-datepicker-current-day {
+            .ui-state-default {
+                background-color: #0275d8 !important;
+            }
+        }
+    }
+    .tableclass {
+        div {
+            border: 1px solid #c2c2c2;
+            th {
+                background-color: #f2f2f2;
+                border: 1px solid #c2c2c2;
+            }
+            td {
+                border: 1px solid #c2c2c2;
+            }
+        }
+    }
+}
+
+.switchsearch {
+    float: right;
+    color: blue;
+    cursor: pointer;
+}
